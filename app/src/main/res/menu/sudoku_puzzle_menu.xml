@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <item
+        android:id="@+id/menu_sudoku_timer"
+        android:title="00:00"
+        app:showAsAction="always"
+        app:actionViewClass="android.widget.TextView"/>
+
+    <item
+        android:id="@+id/menu_puzzle_undo"
+        android:icon="@android:drawable/ic_menu_revert"
+        android:title="@string/puzzle_undo_last_action"
+        app:showAsAction="ifRoom" />
+
+    <item android:id="@+id/menu_puzzle_options"
+        android:title="@string/options"
+        app:showAsAction="never"/>
+
+    <item android:id="@+id/menu_puzzle_reset"
+        android:title="@string/puzzle_reset"
+        app:showAsAction="never"/>
+</menu>

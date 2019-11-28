@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Sudoku</string>
+    <string name="title_activity_difficulty_select">difficulty_select</string>
+    <string name="btn_play">Play</string>
+    <string name="btn_option">Options</string>
+    <string name="btn_easy_difficulty">Easy</string>
+    <string name="btn_medium_difficulty">Medium</string>
+    <string name="btn_hard_difficulty">Hard</string>
+    <string name="title_choose_difficulty">Choose Difficulty</string>
+    <string name="title_activity_options_menu">OptionsMenu</string>
+    <string name="puzzle_reset">Reset</string>
+    <string name="puzzle_undo_last_action">Undo Last Action</string>
+    <string name="options">Options</string>
+    <string name="diag_reset_puzzle">Are you sure you want to reset the puzzle?</string>
+    <string name="diag_yes">Yes</string>
+    <string name="diag_no">No</string>
+</resources>

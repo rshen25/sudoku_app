@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="@color/colorLightBlueGrey"/>
+    <stroke android:color="@color/colorSlateGrey" android:width="1dp"/>
+</shape>
+
+<!--<selector xmlns:android="http://schemas.android.com/apk/res/android">-->
+<!--    <item android:drawable="@drawable/sb_unclickable" />-->
+<!--    <item android:state_activated="true" android:drawable="@drawable/sudoku_board_cell_highlight"/>-->
+<!--</selector>-->
