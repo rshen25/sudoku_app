@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -23,12 +24,21 @@ public class PuzzleSelect extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_puzzle_select);
 
-        // TODO: temporary, should be moved to puzzle select to give the file name to look open
-        // Get puzzle list
-        puzzleReader = new PuzzleReader(this);
-        mPuzzles = puzzleReader.getPuzzleList();
+        // Get Extras
+        int difficulty;
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            difficulty = extras.getInt("EXTRA_DIFFICULTY");
+            // Get puzzle list
+            puzzleReader = new PuzzleReader(this, difficulty);
+            mPuzzles = puzzleReader.getPuzzleList();
+        }
+        else {
+            Toast.makeText(this, "Error occurred, please select another puzzle.", Toast.LENGTH_SHORT).show();
+            finish();
+        }
 
-        // Get recyclerView
+        // Get recyclerView and set up the recyclerView to display the Sudoku Puzzles
         recyclerView = findViewById(R.id.recyclerview_PuzzleList);
         recyclerView.setHasFixedSize(true);
 

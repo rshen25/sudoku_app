@@ -122,7 +122,7 @@ public class SudokuBoard {
                 mSudokuBoard[i][j].setClickable(false);
             }
         }
-        mSudokuPuzzleUndo.resetList();
+        //mSudokuPuzzleUndo.resetList();
     }
 
     public void addNumbertoState(int row, int col, char num) { // char num, int num
@@ -143,7 +143,7 @@ public class SudokuBoard {
     public void undoAction() {
         char[] undoState = mSudokuPuzzleUndo.getUndoState();
         if (undoState != null) {
-            // set the number on the sudoku board with the given coords with the number in UndoCell
+            // Sets the current Sudoku Board state to the undo state
             mCurrentState = undoState;
             updateSudokuBoard();
         }
@@ -151,7 +151,6 @@ public class SudokuBoard {
             return;
         }
     }
-
 
     private void updateSudokuBoard() {
         int x = 0;

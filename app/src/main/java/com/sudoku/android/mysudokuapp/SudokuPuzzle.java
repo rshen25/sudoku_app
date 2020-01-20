@@ -16,28 +16,28 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-// TODO: when clicking on a number in the numpad, highlight all the same numbers on the board
-// TODO: features to add: save states or some sort of saving
-// TODO: Notes functionality
+/**
+ * TODO: Potential features : when clicking on a number in the numpad, highlight all the same numbers on the board
+ * Save states or some sort of saving
+ * Notes functionality
+ */
+
+
 public class SudokuPuzzle extends AppCompatActivity implements SudokuPuzzleDialogFragment.SudokuPuzzleDialogListener{
 
     private static final String TAG = "SudokuPuzzle";
 
-    private static final int PUZZLE_SIZE = 81;
     private static final int ROW_AND_COL_SIZE = 9;
     private static final int NUM_ROWS = ROW_AND_COL_SIZE;
     private static final int NUM_COLS = ROW_AND_COL_SIZE;
 
-    private boolean mResetTime = false;
-
     private int mCurrentNumber = 1;
 
     private SudokuBoard mSudokuBoard;
-    private Chronometer mSudokuTimer;
+    private SudokuTimer mSudokuTimer;
     private TextView mTimerText;
     private Button mPrevNumButton;
 
-    //TODO: refactor the mTimerText to be in another class
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,7 +62,7 @@ public class SudokuPuzzle extends AppCompatActivity implements SudokuPuzzleDialo
                 finish();
             }
         }
-        // display the puzzle onto the Sudoku Board
+        // Display the puzzle onto the Sudoku Board
         mSudokuBoard.displayPuzzleOnBoard();
 
         // Button btnNotes = findViewById(R.id.btn_sel_notes);
@@ -73,8 +73,11 @@ public class SudokuPuzzle extends AppCompatActivity implements SudokuPuzzleDialo
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.sudoku_puzzle_menu, menu);
 
+        // Initiate the timer
         mTimerText = (TextView) menu.findItem(R.id.menu_sudoku_timer).getActionView();
-        startTimer();
+
+        mSudokuTimer = new SudokuTimer(mTimerText, (Chronometer) findViewById(R.id.chrono_sudoku));
+        mSudokuTimer.startTimer();
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -100,7 +103,10 @@ public class SudokuPuzzle extends AppCompatActivity implements SudokuPuzzleDialo
         }
     }
 
-    // Gets all the buttons for the Sudoku Board and puts in a 2d array
+    /**
+     * Gets all the buttons for the Sudoku Board and puts in a 2d array
+     * @return A 9x9 array of buttons representing the Sudoku board
+     */
     private Button[][] getSudokuButtons() {
         Button[][] SudokuButtons = new Button[NUM_ROWS][NUM_COLS];
         for (int row = 0; row < ROW_AND_COL_SIZE; row++) {
@@ -175,56 +181,36 @@ public class SudokuPuzzle extends AppCompatActivity implements SudokuPuzzleDialo
         }
     }
 
-    // When the puzzle is successfully solved, the puzzle is no longer clickable and a toast message appears
+    /**
+     * When the puzzle is successfully solved, the puzzle is no longer clickable and a toast message appears
+     */
     private void solvedPuzzle(){
         Toast.makeText(this, "Success!", Toast.LENGTH_SHORT);
         mSudokuBoard.solvedPuzzle();
     }
 
-    // Show the reset puzzle confirmation dialog box
+    /**
+     * Show the reset puzzle confirmation dialog box
+     */
     public void showNoticeDialog() {
         SudokuPuzzleDialogFragment dialogFragment = new SudokuPuzzleDialogFragment();
         dialogFragment.show(getSupportFragmentManager(), "SudokuPuzzleDialogFragment");
     }
 
-    // Resets the Sudoku Board to its original state
+    /**
+     * Resets the Sudoku Board to its original state
+     * @param dialog The dialog fragment to confirm whether to reset the puzzle
+     */
     @Override
     public void onDialogPositiveClick(DialogFragment dialog) {
         mSudokuBoard.resetPuzzle();
-        mResetTime = true;
+        mSudokuTimer.resetTime();
     }
 
     // Cancels the reset action, nothing happens
     @Override
     public void onDialogNegativeClick(DialogFragment dialog) {
         return;
-    }
-
-    private void startTimer(){
-        mSudokuTimer = findViewById(R.id.chrono_sudoku);
-        mSudokuTimer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
-
-            public int seconds = 0;
-            public int minutes = 0;
-
-            @Override
-            public void onChronometerTick(Chronometer chronometer) {
-                seconds++;
-
-                if (mResetTime) {
-                    seconds = 0;
-                    minutes = 0;
-                    mResetTime = false;
-                }
-
-                if (seconds >= 60) {
-                    minutes++;
-                }
-                seconds = seconds % 60;
-                mTimerText.setText(String.format("%02d", minutes) + ":" + String.format("%02d", seconds));;
-            }
-        });
-        mSudokuTimer.start();
     }
 
 }

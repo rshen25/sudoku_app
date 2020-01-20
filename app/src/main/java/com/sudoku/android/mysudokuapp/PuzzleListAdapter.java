@@ -14,7 +14,9 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-
+/**
+ * Adapter to display each puzzle in the puzzle data file, and allows the user to select one to solve
+ */
 public class PuzzleListAdapter extends RecyclerView.Adapter<PuzzleListAdapter.PuzzleListHolder> {
 
     private static final String TAG = "PuzzleListAdapter";
